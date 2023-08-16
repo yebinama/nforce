@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "nforce"
+version = "0.0.1"
+authors = ["Gregoire Unbekandt <gregoire.unbekandt@gmail.com>"]
+description = "Enforce security groups"
+homepage = "https://github.com/yebinama/nforce"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8.0"
+neutron-lib = "^2.7.0"
+openstacksdk = "^0.55.0"
+tenacity = "^8.2.2"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+yamllint = "^1.26.3"
+pytest = "^7.1.2"
+safety = "^2.0.0"
+Sphinx = "^5.0.2"
+sphinx-multiversion = "^0.2.4"
+sphinx-rtd-theme = "^1.0.0"
+myst-parser = "^0.18.0"
+pytest-cov = "^3.0.0"
+pytest-mock = "^3.8.2"
+ruff = "^0.0.272"
+pylint = "^2.17.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.0"
+version_files = [
+    "nforce/__init__.py",
+    "pyproject.toml:version",
+    "docs/conf.py:release"
+]
+tag_format = "$version"
+
+[tool.ruff]
+select = ["E", "F", "B"]
+ignore = ["F403", "B024"]
+
+[tool.black]
+preview = true
+line-length = 88
+
+[tool.poetry.plugins."neutron.agent.l2.extensions"]
+"nforce" = "nforce.neutron.extension:NforceNeutronAgentExtension"
